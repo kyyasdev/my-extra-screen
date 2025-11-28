@@ -16,6 +16,7 @@ const Layout = ({
   showProductivePeople,
   onShowProductivePeopleChange,
   UserCounterComponent,
+  onModalStateChange,
 }) => {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isContactOpen, setIsContactOpen] = useState(false);
@@ -25,6 +26,13 @@ const Layout = ({
 
   // Check if any modal is open
   const isAnyModalOpen = isSettingsOpen || isContactOpen || isAboutOpen;
+
+  // Notify parent when modal state changes
+  useEffect(() => {
+    if (onModalStateChange) {
+      onModalStateChange(isAnyModalOpen);
+    }
+  }, [isAnyModalOpen, onModalStateChange]);
   const [timeFormat, setTimeFormat] = useState(() => {
     // Load from localStorage or default to 24h
     const saved = localStorage.getItem('timeFormat');

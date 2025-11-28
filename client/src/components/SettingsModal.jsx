@@ -4,6 +4,7 @@ import Switch from '@mui/material/Switch';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
+import { backgroundColors } from '../utils/backgroundColors';
 
 const SettingsModal = ({
   isOpen,
@@ -28,6 +29,10 @@ const SettingsModal = ({
     useState(showProductivePeople);
   const [workTimeValue, setWorkTimeValue] = useState(workTime);
   const [restTimeValue, setRestTimeValue] = useState(restTime);
+  const [backgroundColorValue, setBackgroundColorValue] = useState(() => {
+    const saved = localStorage.getItem('backgroundColor');
+    return saved || 'default';
+  });
 
   useEffect(() => {
     setSelectedFormat(timeFormat);
@@ -92,6 +97,15 @@ const SettingsModal = ({
   const handleRestTimeChange = (time) => {
     setRestTimeValue(time);
     onRestTimeChange(time);
+  };
+
+  const handleBackgroundColorChange = (colorId) => {
+    setBackgroundColorValue(colorId);
+    localStorage.setItem('backgroundColor', colorId);
+    // Trigger a custom event to notify App.jsx to update
+    window.dispatchEvent(
+      new CustomEvent('backgroundColorChanged', { detail: colorId })
+    );
   };
 
   if (!isOpen) return null;
@@ -374,6 +388,70 @@ const SettingsModal = ({
                 },
               }}
             />
+          </div>
+        </div>
+
+        {/* Background Color Setting */}
+        <div className="mb-6">
+          <label className="block text-sm font-medium text-white/90 mb-3">
+            Background Color
+          </label>
+
+          {/* Solid Colors */}
+          <div className="mb-4">
+            <p className="text-xs text-white/60 mb-2">Solid Colors</p>
+            <div className="flex flex-wrap gap-3">
+              {backgroundColors.solid.map((color) => (
+                <button
+                  key={color.id}
+                  onClick={() => handleBackgroundColorChange(color.id)}
+                  className={`w-12 h-12 rounded-full border-2 transition-all hover:scale-110 ${
+                    backgroundColorValue === color.id
+                      ? 'border-white ring-2 ring-indigo-500 ring-offset-2 ring-offset-[#1f2937]'
+                      : 'border-white/30 hover:border-white/50'
+                  }`}
+                  style={{ backgroundColor: color.color }}
+                  aria-label={color.name}
+                  title={color.name}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Gradient Colors */}
+          <div className="mb-4">
+            <p className="text-xs text-white/60 mb-2">More Gradient Colors</p>
+            <div className="flex flex-wrap gap-3">
+              {backgroundColors.gradient.map((gradient) => (
+                <button
+                  key={gradient.id}
+                  onClick={() => handleBackgroundColorChange(gradient.id)}
+                  className={`w-12 h-12 rounded-full border-2 transition-all hover:scale-110 ${
+                    backgroundColorValue === gradient.id
+                      ? 'border-white ring-2 ring-indigo-500 ring-offset-2 ring-offset-[#1f2937]'
+                      : 'border-white/30 hover:border-white/50'
+                  }`}
+                  style={{ background: gradient.gradient }}
+                  aria-label={gradient.name}
+                  title={gradient.name}
+                />
+              ))}
+              <button
+                onClick={() =>
+                  handleBackgroundColorChange(backgroundColors.animated.id)
+                }
+                className={`w-12 h-12 rounded-full border-2 transition-all hover:scale-110 relative overflow-hidden ${
+                  backgroundColorValue === backgroundColors.animated.id
+                    ? 'border-white ring-2 ring-indigo-500 ring-offset-2 ring-offset-[#1f2937]'
+                    : 'border-white/30 hover:border-white/50'
+                }`}
+                style={{ background: backgroundColors.animated.preview }}
+                aria-label={backgroundColors.animated.name}
+                title={backgroundColors.animated.name}
+              >
+                <div className="absolute inset-0 animate-shimmer rounded-full"></div>
+              </button>
+            </div>
           </div>
         </div>
 
