@@ -21,6 +21,8 @@ const SettingsModal = ({
   onWorkTimeChange,
   restTime,
   onRestTimeChange,
+  showTabs,
+  onShowTabsChange,
 }) => {
   const [selectedFormat, setSelectedFormat] = useState(timeFormat);
   const [showSecondsValue, setShowSecondsValue] = useState(showSeconds);
@@ -29,6 +31,7 @@ const SettingsModal = ({
     useState(showProductivePeople);
   const [workTimeValue, setWorkTimeValue] = useState(workTime);
   const [restTimeValue, setRestTimeValue] = useState(restTime);
+  const [showTabsValue, setShowTabsValue] = useState(showTabs);
   const [backgroundColorValue, setBackgroundColorValue] = useState(() => {
     const saved = localStorage.getItem('backgroundColor');
     return saved || 'default';
@@ -57,6 +60,10 @@ const SettingsModal = ({
   useEffect(() => {
     setRestTimeValue(restTime);
   }, [restTime]);
+
+  useEffect(() => {
+    setShowTabsValue(showTabs);
+  }, [showTabs]);
 
   useEffect(() => {
     if (isOpen) {
@@ -97,6 +104,11 @@ const SettingsModal = ({
   const handleRestTimeChange = (time) => {
     setRestTimeValue(time);
     onRestTimeChange(time);
+  };
+
+  const handleShowTabsChange = (checked) => {
+    setShowTabsValue(checked);
+    onShowTabsChange(checked);
   };
 
   const handleBackgroundColorChange = (colorId) => {
@@ -200,7 +212,7 @@ const SettingsModal = ({
                 htmlFor="work-time"
                 className="block text-sm font-medium text-white/90 mb-3"
               >
-                Work Time
+                Pomodoro Work Time
               </label>
               <FormControl fullWidth>
                 <Select
@@ -257,7 +269,7 @@ const SettingsModal = ({
                 htmlFor="rest-time"
                 className="block text-sm font-medium text-white/90 mb-3"
               >
-                Rest Time
+                Pomodoro Rest Time
               </label>
               <FormControl fullWidth>
                 <Select
@@ -378,6 +390,32 @@ const SettingsModal = ({
               onChange={(e) =>
                 handleShowProductivePeopleChange(e.target.checked)
               }
+              sx={{
+                '& .MuiSwitch-switchBase.Mui-checked': { color: '#6366f1' },
+                '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+                  backgroundColor: '#6366f1',
+                },
+                '& .MuiSwitch-track': {
+                  backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                },
+              }}
+            />
+          </div>
+        </div>
+
+        {/* Show Clock/Pomodoro Tabs Setting */}
+        <div className="mb-6">
+          <div className="flex items-center justify-between">
+            <label
+              htmlFor="show-tabs"
+              className="text-sm font-medium text-white cursor-pointer"
+            >
+              Show Clock/Pomodoro Tabs
+            </label>
+            <Switch
+              id="show-tabs"
+              checked={showTabsValue}
+              onChange={(e) => handleShowTabsChange(e.target.checked)}
               sx={{
                 '& .MuiSwitch-switchBase.Mui-checked': { color: '#6366f1' },
                 '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {

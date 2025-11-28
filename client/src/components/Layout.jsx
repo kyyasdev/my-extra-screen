@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import SendIcon from '@mui/icons-material/Send';
 import InfoIcon from '@mui/icons-material/Info';
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import SettingsIcon from '@mui/icons-material/Settings';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
@@ -58,6 +57,11 @@ const Layout = ({
     const saved = localStorage.getItem('pomodoroRestTime');
     return saved ? parseInt(saved, 10) : 5;
   });
+  const [showTabs, setShowTabs] = useState(() => {
+    // Load from localStorage or default to true
+    const saved = localStorage.getItem('showTabs');
+    return saved !== null ? saved === 'true' : true;
+  });
 
   const handleTimeFormatChange = (format) => {
     setTimeFormat(format);
@@ -82,6 +86,11 @@ const Layout = ({
   const handleRestTimeChange = (time) => {
     setRestTime(time);
     localStorage.setItem('pomodoroRestTime', time.toString());
+  };
+
+  const handleShowTabsChange = (show) => {
+    setShowTabs(show);
+    localStorage.setItem('showTabs', show.toString());
   };
 
   // Fullscreen functionality
@@ -111,33 +120,43 @@ const Layout = ({
       className="flex flex-col items-center justify-center gap-16 z-10 relative"
       aria-label="Digital clock and timer display"
     >
-      {/* Tabs */}
-      <div
-        className={`flex items-center gap-2 bg-white/5 rounded-lg p-1 border border-white/10 ${
-          activeTab === 'clock' ? '-mt-12' : ''
-        }`}
-      >
-        <button
-          onClick={() => setActiveTab('clock')}
-          className={`px-6 py-2 rounded-md text-sm font-medium transition-all ${
-            activeTab === 'clock'
-              ? 'bg-indigo-500 text-white'
-              : 'text-white/70 hover:text-white'
-          }`}
-        >
-          Clock
-        </button>
-        <button
-          onClick={() => setActiveTab('pomodoro')}
-          className={`px-6 py-2 rounded-md text-sm font-medium transition-all ${
-            activeTab === 'pomodoro'
-              ? 'bg-indigo-500 text-white'
-              : 'text-white/70 hover:text-white'
-          }`}
-        >
-          Pomodoro
-        </button>
+      {/* Logo */}
+      <div className="fixed top-6 left-6 z-50">
+        <img
+          src="/my-extra-screen-logo.svg"
+          alt="My Extra Screen"
+          className="h-28 w-auto opacity-80 hover:opacity-100 transition-opacity"
+        />
       </div>
+      {/* Tabs */}
+      {showTabs && (
+        <div
+          className={`flex items-center gap-2 bg-white/5 rounded-lg p-1 border border-white/10 ${
+            activeTab === 'clock' ? '-mt-12' : ''
+          }`}
+        >
+          <button
+            onClick={() => setActiveTab('clock')}
+            className={`px-6 py-2 rounded-md text-sm font-medium transition-all ${
+              activeTab === 'clock'
+                ? 'bg-indigo-500 text-white'
+                : 'text-white/70 hover:text-white'
+            }`}
+          >
+            Clock
+          </button>
+          <button
+            onClick={() => setActiveTab('pomodoro')}
+            className={`px-6 py-2 rounded-md text-sm font-medium transition-all ${
+              activeTab === 'pomodoro'
+                ? 'bg-indigo-500 text-white'
+                : 'text-white/70 hover:text-white'
+            }`}
+          >
+            Pomodoro
+          </button>
+        </div>
+      )}
 
       {/* Content based on active tab */}
       {activeTab === 'clock' ? (
@@ -178,6 +197,8 @@ const Layout = ({
         onWorkTimeChange={handleWorkTimeChange}
         restTime={restTime}
         onRestTimeChange={handleRestTimeChange}
+        showTabs={showTabs}
+        onShowTabsChange={handleShowTabsChange}
       />
 
       {/* Contact Modal */}
