@@ -4,17 +4,13 @@ import UserCounter from './components/UserCounter';
 
 function App() {
   const [showProductivePeople, setShowProductivePeople] = useState(() => {
-    // Load from localStorage or default to true
     const saved = localStorage.getItem('showProductivePeople');
     return saved !== null ? saved === 'true' : true;
   });
 
-  // Update document title dynamically for SEO
   useEffect(() => {
     document.title =
       'My Extra Screen - Beautiful Clock, Timer & Pomodoro for Your Extra Monitor';
-
-    // Update meta description dynamically
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute(

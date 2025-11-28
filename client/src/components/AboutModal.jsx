@@ -85,6 +85,7 @@ const AboutModal = ({ isOpen, onClose }) => {
                     className="w-12 h-12 rounded-full object-cover border-2 border-white/20"
                   />
                   <p className="text-white/90 font-medium text-lg">
+                    {' '}
                     Kyyas Ilmyradov
                   </p>
                 </div>

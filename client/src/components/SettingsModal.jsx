@@ -163,18 +163,12 @@ const SettingsModal = ({
                 color: 'white',
                 border: '1px solid rgba(255, 255, 255, 0.2)',
                 borderRadius: '0.5rem',
-                '& .MuiOutlinedInput-notchedOutline': {
-                  border: 'none',
-                },
-                '&:hover .MuiOutlinedInput-notchedOutline': {
-                  border: 'none',
-                },
+                '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
+                '&:hover .MuiOutlinedInput-notchedOutline': { border: 'none' },
                 '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
                   border: '2px solid #6366f1',
                 },
-                '& .MuiSvgIcon-root': {
-                  color: 'white',
-                },
+                '& .MuiSvgIcon-root': { color: 'white' },
               }}
             >
               <MenuItem value="24h">24 Hour</MenuItem>
@@ -226,18 +220,14 @@ const SettingsModal = ({
                     color: 'white',
                     border: '1px solid rgba(255, 255, 255, 0.2)',
                     borderRadius: '0.5rem',
-                    '& .MuiOutlinedInput-notchedOutline': {
-                      border: 'none',
-                    },
+                    '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
                     '&:hover .MuiOutlinedInput-notchedOutline': {
                       border: 'none',
                     },
                     '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
                       border: '2px solid #6366f1',
                     },
-                    '& .MuiSvgIcon-root': {
-                      color: 'white',
-                    },
+                    '& .MuiSvgIcon-root': { color: 'white' },
                   }}
                 >
                   <MenuItem value={25}>25 minutes</MenuItem>
@@ -287,18 +277,14 @@ const SettingsModal = ({
                     color: 'white',
                     border: '1px solid rgba(255, 255, 255, 0.2)',
                     borderRadius: '0.5rem',
-                    '& .MuiOutlinedInput-notchedOutline': {
-                      border: 'none',
-                    },
+                    '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
                     '&:hover .MuiOutlinedInput-notchedOutline': {
                       border: 'none',
                     },
                     '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
                       border: '2px solid #6366f1',
                     },
-                    '& .MuiSvgIcon-root': {
-                      color: 'white',
-                    },
+                    '& .MuiSvgIcon-root': { color: 'white' },
                   }}
                 >
                   <MenuItem value={5}>5 minutes</MenuItem>
