@@ -16,12 +16,18 @@ const SettingsModal = ({
   onShowQuotesChange,
   showProductivePeople,
   onShowProductivePeopleChange,
+  workTime,
+  onWorkTimeChange,
+  restTime,
+  onRestTimeChange,
 }) => {
   const [selectedFormat, setSelectedFormat] = useState(timeFormat);
   const [showSecondsValue, setShowSecondsValue] = useState(showSeconds);
   const [showQuotesValue, setShowQuotesValue] = useState(showQuotes);
   const [showProductivePeopleValue, setShowProductivePeopleValue] =
     useState(showProductivePeople);
+  const [workTimeValue, setWorkTimeValue] = useState(workTime);
+  const [restTimeValue, setRestTimeValue] = useState(restTime);
 
   useEffect(() => {
     setSelectedFormat(timeFormat);
@@ -38,6 +44,14 @@ const SettingsModal = ({
   useEffect(() => {
     setShowProductivePeopleValue(showProductivePeople);
   }, [showProductivePeople]);
+
+  useEffect(() => {
+    setWorkTimeValue(workTime);
+  }, [workTime]);
+
+  useEffect(() => {
+    setRestTimeValue(restTime);
+  }, [restTime]);
 
   useEffect(() => {
     if (isOpen) {
@@ -68,6 +82,16 @@ const SettingsModal = ({
   const handleShowProductivePeopleChange = (checked) => {
     setShowProductivePeopleValue(checked);
     onShowProductivePeopleChange(checked);
+  };
+
+  const handleWorkTimeChange = (time) => {
+    setWorkTimeValue(time);
+    onWorkTimeChange(time);
+  };
+
+  const handleRestTimeChange = (time) => {
+    setRestTimeValue(time);
+    onRestTimeChange(time);
   };
 
   if (!isOpen) return null;
@@ -159,6 +183,134 @@ const SettingsModal = ({
           </FormControl>
         </div>
 
+        {/* Pomodoro Timer Settings */}
+        <div className="mb-6">
+          <div className="flex gap-4">
+            {/* Work Time */}
+            <div className="flex-1">
+              <label
+                htmlFor="work-time"
+                className="block text-sm font-medium text-white/90 mb-3"
+              >
+                Work Time
+              </label>
+              <FormControl fullWidth>
+                <Select
+                  id="work-time"
+                  value={workTimeValue}
+                  onChange={(e) =>
+                    handleWorkTimeChange(parseInt(e.target.value, 10))
+                  }
+                  MenuProps={{
+                    PaperProps: {
+                      sx: {
+                        backgroundColor: '#1f2937',
+                        color: 'white',
+                        '& .MuiMenuItem-root': {
+                          color: 'white',
+                          '&:hover': {
+                            backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                          },
+                          '&.Mui-selected': {
+                            backgroundColor: 'rgba(99, 102, 241, 0.3)',
+                            '&:hover': {
+                              backgroundColor: 'rgba(99, 102, 241, 0.4)',
+                            },
+                          },
+                        },
+                      },
+                    },
+                  }}
+                  sx={{
+                    backgroundColor: '#2d3748',
+                    color: 'white',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    borderRadius: '0.5rem',
+                    '& .MuiOutlinedInput-notchedOutline': {
+                      border: 'none',
+                    },
+                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                      border: 'none',
+                    },
+                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                      border: '2px solid #6366f1',
+                    },
+                    '& .MuiSvgIcon-root': {
+                      color: 'white',
+                    },
+                  }}
+                >
+                  <MenuItem value={25}>25 minutes</MenuItem>
+                  <MenuItem value={60}>1 hour</MenuItem>
+                  <MenuItem value={120}>2 hours</MenuItem>
+                  <MenuItem value={240}>4 hours</MenuItem>
+                </Select>
+              </FormControl>
+            </div>
+            {/* Rest Time */}
+            <div className="flex-1">
+              <label
+                htmlFor="rest-time"
+                className="block text-sm font-medium text-white/90 mb-3"
+              >
+                Rest Time
+              </label>
+              <FormControl fullWidth>
+                <Select
+                  id="rest-time"
+                  value={restTimeValue}
+                  onChange={(e) =>
+                    handleRestTimeChange(parseInt(e.target.value, 10))
+                  }
+                  MenuProps={{
+                    PaperProps: {
+                      sx: {
+                        backgroundColor: '#1f2937',
+                        color: 'white',
+                        '& .MuiMenuItem-root': {
+                          color: 'white',
+                          '&:hover': {
+                            backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                          },
+                          '&.Mui-selected': {
+                            backgroundColor: 'rgba(99, 102, 241, 0.3)',
+                            '&:hover': {
+                              backgroundColor: 'rgba(99, 102, 241, 0.4)',
+                            },
+                          },
+                        },
+                      },
+                    },
+                  }}
+                  sx={{
+                    backgroundColor: '#2d3748',
+                    color: 'white',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    borderRadius: '0.5rem',
+                    '& .MuiOutlinedInput-notchedOutline': {
+                      border: 'none',
+                    },
+                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                      border: 'none',
+                    },
+                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                      border: '2px solid #6366f1',
+                    },
+                    '& .MuiSvgIcon-root': {
+                      color: 'white',
+                    },
+                  }}
+                >
+                  <MenuItem value={5}>5 minutes</MenuItem>
+                  <MenuItem value={15}>15 minutes</MenuItem>
+                  <MenuItem value={60}>1 hour</MenuItem>
+                  <MenuItem value={120}>2 hours</MenuItem>
+                </Select>
+              </FormControl>
+            </div>
+          </div>
+        </div>
+
         {/* Show Seconds Setting */}
         <div className="mb-6">
           <div className="flex items-center justify-between">
@@ -173,9 +325,7 @@ const SettingsModal = ({
               checked={showSecondsValue}
               onChange={(e) => handleShowSecondsChange(e.target.checked)}
               sx={{
-                '& .MuiSwitch-switchBase.Mui-checked': {
-                  color: '#6366f1',
-                },
+                '& .MuiSwitch-switchBase.Mui-checked': { color: '#6366f1' },
                 '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
                   backgroundColor: '#6366f1',
                 },
@@ -201,9 +351,7 @@ const SettingsModal = ({
               checked={showQuotesValue}
               onChange={(e) => handleShowQuotesChange(e.target.checked)}
               sx={{
-                '& .MuiSwitch-switchBase.Mui-checked': {
-                  color: '#6366f1',
-                },
+                '& .MuiSwitch-switchBase.Mui-checked': { color: '#6366f1' },
                 '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
                   backgroundColor: '#6366f1',
                 },
@@ -231,9 +379,7 @@ const SettingsModal = ({
                 handleShowProductivePeopleChange(e.target.checked)
               }
               sx={{
-                '& .MuiSwitch-switchBase.Mui-checked': {
-                  color: '#6366f1',
-                },
+                '& .MuiSwitch-switchBase.Mui-checked': { color: '#6366f1' },
                 '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
                   backgroundColor: '#6366f1',
                 },

@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import SettingsIcon from '@mui/icons-material/Settings';
 
-const Clock = ({ timeFormat, showSeconds, onSettingsClick, isModalOpen }) => {
+const Clock = ({ timeFormat, showSeconds }) => {
   const [time, setTime] = useState(new Date());
 
   useEffect(() => {
@@ -68,28 +67,14 @@ const Clock = ({ timeFormat, showSeconds, onSettingsClick, isModalOpen }) => {
 
   return (
     <>
-      {/* Date with Settings Icon */}
-      <div className="flex items-center gap-4">
-        <time
-          dateTime={time.toISOString()}
-          className="text-white/70 font-normal tracking-[0.1em] uppercase text-base md:text-2xl font-sans"
-          aria-label={`Current date: ${dateString}`}
-        >
-          {dateString}
-        </time>
-        <button
-          onClick={onSettingsClick}
-          disabled={isModalOpen}
-          className={`transition-colors p-2 rounded-lg ${
-            isModalOpen
-              ? 'text-white/30 cursor-not-allowed'
-              : 'text-white/70 hover:text-white hover:bg-white/10'
-          }`}
-          aria-label="Open settings"
-        >
-          <SettingsIcon className="text-xl md:text-2xl" />
-        </button>
-      </div>
+      {/* Date */}
+      <time
+        dateTime={time.toISOString()}
+        className="text-white/70 font-normal tracking-[0.1em] uppercase text-base md:text-2xl font-sans"
+        aria-label={`Current date: ${dateString}`}
+      >
+        {dateString}
+      </time>
 
       {/* Main Clock */}
       <div
