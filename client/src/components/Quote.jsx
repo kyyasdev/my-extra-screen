@@ -49,7 +49,7 @@ const Quote = () => {
           ) : quote ? (
             <>
               <p className="text-white/80 text-lg md:text-xl lg:text-2xl font-light italic leading-relaxed">
-                "{quote.quote}"
+                "{quote.text}"
               </p>
               {quote.author && (
                 <p className="text-white/50 text-sm md:text-base mt-4 font-normal">
