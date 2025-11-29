@@ -2,9 +2,7 @@ import { useState, useEffect } from 'react';
 import { getApiUrl } from '../utils/api';
 
 const UserCounter = () => {
-  const [userCount, setUserCount] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [userCount, setUserCount] = useState(0);
 
   // Phrases to choose from - impressive alternatives
   const phrases = [
@@ -23,8 +21,6 @@ const UserCounter = () => {
   });
 
   const fetchOnlineCounter = async () => {
-    setIsLoading(true);
-    setError(null);
     try {
       const response = await fetch(getApiUrl('/online-counter'));
       if (!response.ok) {
@@ -33,9 +29,7 @@ const UserCounter = () => {
       const data = await response.json();
       setUserCount(data);
     } catch (err) {
-      setError(err.message);
-    } finally {
-      setIsLoading(false);
+      console.error('Error fetching online counter:', err);
     }
   };
 
@@ -55,19 +49,11 @@ const UserCounter = () => {
   return (
     <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-10">
       <p className="text-white/60 text-sm md:text-base text-center font-light">
-        {isLoading ? (
-          <>...</>
-        ) : error ? (
-          <>Unable to load counter</>
-        ) : (
-          <>
-            Right now there are{' '}
-            <span className="text-white/80 font-medium">
-              {formatNumber(userCount)}
-            </span>{' '}
-            people {currentPhrase} all around the world.
-          </>
-        )}
+        Right now there are{' '}
+        <span className="text-white/80 font-medium">
+          {formatNumber(userCount)}
+        </span>{' '}
+        people {currentPhrase} all around the world.
       </p>
     </div>
   );
