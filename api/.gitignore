@@ -18,6 +18,7 @@ ENV/
 path/
 
 # IDE
+.DS_Store
 .vscode/
 .idea/
 *.swp

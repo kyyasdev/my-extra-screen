@@ -3,13 +3,9 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import { getApiUrl } from '../utils/api';
 
 const Quote = () => {
-  const [quote, setQuote] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [quote, setQuote] = useState({ text: '...', author: null });
 
   const fetchQuote = async () => {
-    setIsLoading(true);
-    setError(null);
     try {
       const response = await fetch(getApiUrl('/quote'));
       if (!response.ok) {
@@ -18,10 +14,7 @@ const Quote = () => {
       const data = await response.json();
       setQuote(data);
     } catch (err) {
-      setError(err.message);
       console.error('Error fetching quote:', err);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -60,41 +53,26 @@ const Quote = () => {
 
           {/* Content */}
           <div className="relative z-10 pl-8 pr-8 md:pl-10">
-            {isLoading ? (
-              <div className="text-center py-3">
-                <p className="text-white/50 text-base md:text-lg font-light italic">
-                  Loading quote...
-                </p>
-              </div>
-            ) : error ? (
-              <div className="text-center py-3">
-                <p className="text-white/50 text-base md:text-lg font-light italic">
-                  Failed to load quote
-                </p>
-              </div>
-            ) : quote ? (
-              <div className="text-center">
-                <blockquote className="text-white/90 text-base md:text-lg lg:text-xl font-light italic leading-relaxed mb-3">
-                  {quote.text}
-                </blockquote>
-                {quote.author && (
-                  <div className="flex items-center justify-center gap-2">
-                    <div className="h-px w-8 bg-white/20"></div>
-                    <p className="text-white/60 text-xs md:text-sm font-medium tracking-wide">
-                      {quote.author}
-                    </p>
-                    <div className="h-px w-8 bg-white/20"></div>
-                  </div>
-                )}
-              </div>
-            ) : null}
+            <div className="text-center">
+              <blockquote className="text-white/90 text-base md:text-lg lg:text-xl font-light italic leading-relaxed mb-3">
+                {quote.text}
+              </blockquote>
+              {quote.author && (
+                <div className="flex items-center justify-center gap-2">
+                  <div className="h-px w-8 bg-white/20"></div>
+                  <p className="text-white/60 text-xs md:text-sm font-medium tracking-wide">
+                    {quote.author}
+                  </p>
+                  <div className="h-px w-8 bg-white/20"></div>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Refresh Button */}
           <button
             onClick={handleRefresh}
-            disabled={isLoading}
-            className="absolute top-2 right-2 text-white/40 hover:text-white/80 p-1.5 rounded-lg flex-shrink-0"
+            className="absolute top-2 right-2 text-white/40 hover:text-white/80 p-1.5 rounded-lg flex-shrink-0 transition-colors"
             aria-label="Refresh quote"
           >
             <RefreshIcon className="text-lg md:text-xl" />
