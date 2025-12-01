@@ -135,7 +135,7 @@ const Layout = ({
         <img
           src="/my-extra-screen-logo.svg"
           alt="My Extra Screen"
-          className="h-28 w-auto opacity-80 hover:opacity-100 transition-opacity"
+          className="h-20 w-auto opacity-80 hover:opacity-100 transition-opacity"
         />
       </div>
       {/* Tabs */}
