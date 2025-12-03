@@ -32,6 +32,7 @@ environment = os.getenv("ENVIRONMENT")
 if environment == "production":
     production_domains = os.getenv("PRODUCTION_DOMAINS")
     allowed_origins = production_domains.split(",")
+    print(allowed_origins)
 else:
     allowed_origins = ["*"]  # Allow all origins in development
 
