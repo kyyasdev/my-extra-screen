@@ -1,4 +1,4 @@
-# My Extra Screen
+# My-Extra-Screen.Com
 
 ![Logo](client/public/my-extra-screen-logo.svg)
 
@@ -47,7 +47,7 @@ npm install
 npm run dev
 ```
 
-Optional `.env` in `client/`:
+Create `.env` in `client/`:
 
 ```env
 VITE_API_URL=http://127.0.0.1:8000/
@@ -55,4 +55,4 @@ VITE_API_URL=http://127.0.0.1:8000/
 
 ---
 
-**Stack:** FastAPI, PostgreSQL, React, Vite, Tailwind
+**Stack:** FastAPI, PostgreSQL, React, Vite, Tailwind, MUI
