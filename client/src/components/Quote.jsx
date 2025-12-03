@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { getApiUrl } from '../utils/api';
+import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 
 const Quote = () => {
   const [quote, setQuote] = useState({ text: '...', author: null });
@@ -29,27 +30,13 @@ const Quote = () => {
   return (
     <div className="w-full max-w-3xl px-4">
       <div className="relative">
-        {/* Beautiful Quote Container */}
+        {/* Quote Container */}
         <div className="relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 md:p-6 shadow-xl">
-          {/* Decorative Quote Mark */}
-          <div className="absolute top-3 left-3 md:top-4 md:left-4">
-            <svg
-              width="40"
-              height="40"
-              viewBox="0 0 24 24"
-              fill="none"
-              className="text-white/10"
-            >
-              <path
-                d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"
-                fill="currentColor"
-              />
-              <path
-                d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"
-                fill="currentColor"
-              />
-            </svg>
-          </div>
+          {/* Quote Mark */}
+          <FormatQuoteIcon
+            className="absolute top-4 left-4 text-white/50"
+            fontSize="large"
+          />
 
           {/* Content */}
           <div className="relative z-10 pl-8 pr-8 md:pl-10">
@@ -72,10 +59,10 @@ const Quote = () => {
           {/* Refresh Button */}
           <button
             onClick={handleRefresh}
-            className="absolute top-2 right-2 text-white/40 hover:text-white/80 p-1.5 rounded-lg flex-shrink-0 transition-colors"
+            className="absolute top-4 right-2 text-white/40 hover:text-white/80 p-1.5 rounded-lg cursor-pointer"
             aria-label="Refresh quote"
           >
-            <RefreshIcon className="text-lg md:text-xl" />
+            <RefreshIcon />
           </button>
         </div>
       </div>
