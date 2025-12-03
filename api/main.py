@@ -32,7 +32,6 @@ environment = os.getenv("ENVIRONMENT")
 if environment == "production":
     production_domains = os.getenv("PRODUCTION_DOMAINS")
     allowed_origins = production_domains.split(",")
-    print(allowed_origins)
 else:
     allowed_origins = ["*"]  # Allow all origins in development
 
@@ -40,7 +39,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=allowed_origins,
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
 
