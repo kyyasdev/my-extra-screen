@@ -63,7 +63,7 @@ def shutdown_scheduler():
 @app.get("/quote", status_code=status.HTTP_200_OK)
 async def get_quote(db: db_dependency) -> QuoteResponse:
     quote = db.query(Quotes).order_by(func.random()).first()
-    if quote:
+    if not quote:
         return QuoteResponse(text="The only way to do great work is to love what you do", author="Steve Jobs")
     return QuoteResponse(text=quote.text, author=quote.author)
        
